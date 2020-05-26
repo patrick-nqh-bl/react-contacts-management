@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Button, Layout, Table, Menu, Breadcrumb } from 'antd';
-import { PlusCircleFilled } from '@ant-design/icons';
+import { PlusCircleFilled, DeleteOutlined } from '@ant-design/icons';
 import AddDrawer from './AddDrawer';
 import { connect } from 'react-redux';
-import { addContact } from './redux/contacts/actions';
+import { addContact, deleteContact } from './redux/contacts/actions';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const App = ({ contacts, addContact }) => {
+const App = ({ contacts, addContact, deleteContact }) => {
   const [showDrawer, setShowDrawer] = useState(false);
   const [errorInfo, setErrorInfo] = useState({});
   const [collapsed, setCollapsed] = useState(false);
@@ -43,6 +43,18 @@ const App = ({ contacts, addContact }) => {
       title: 'Phone Number',
       dataIndex: 'phoneNumber',
       key: 'phoneNumber',
+    },
+    {
+      title: 'Delete',
+      key: 'action',
+      render: (text, record) => (
+        <span>
+          <Button
+            icon={<DeleteOutlined />}
+            onClick={() => deleteContact(record.key)}
+          />
+        </span>
+      ),
     },
   ];
 
@@ -94,9 +106,7 @@ const App = ({ contacts, addContact }) => {
               />
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©2018 Created by Ant UED
-          </Footer>
+          <Footer style={{ textAlign: 'center' }}>Patrick's Project</Footer>
         </Layout>
       </Layout>
     </>
@@ -113,6 +123,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addContact: (contact) => {
       dispatch(addContact(contact));
+    },
+    deleteContact: (key) => {
+      dispatch(deleteContact(key));
     },
   };
 };

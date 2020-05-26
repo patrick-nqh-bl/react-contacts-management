@@ -9,3 +9,7 @@
 - Change user
 
 > git config --global user.mail [your email]
+
+3. Attention:
+
+- Data is written to localhost browser by `redux-persist`.
