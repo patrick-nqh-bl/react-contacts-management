@@ -1,4 +1,4 @@
-# Patrick's Project (using React-Redux, Ant Design, LESS css, Testing )
+# Patrick's Project (using React-Redux, Ant Design, Testing )
 
 1. Source video:
 
