@@ -8,7 +8,7 @@ const contactReducer = (state = initialState, action) => {
     case ADD_CONTACT:
       return {
         ...state,
-        allContacts: [state.allContacts, action.payload],
+        allContacts: [...state.allContacts, action.payload],
       };
     default:
       return state;

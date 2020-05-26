@@ -28,8 +28,6 @@ const App = ({ contacts, addContact }) => {
     setErrorInfo(errorInfo);
   };
 
-  console.log('errorInfo: ', errorInfo);
-
   const columns = [
     {
       title: 'First Name',
@@ -86,7 +84,7 @@ const App = ({ contacts, addContact }) => {
               </div>
 
               <Layout.Content>
-                <Table dataSource={contacts} columns={columns}></Table>
+                <Table dataSource={contacts} columns={columns} />
               </Layout.Content>
               <AddDrawer
                 show={showDrawer}
