@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Button, Layout } from 'antd';
+import { Button, Layout, Table } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import AddDrawer from './AddDrawer';
 
@@ -10,7 +10,13 @@ function App() {
   const [errorInfo, setErrorInfo] = useState({});
 
   const handleAddFormOnFinish = (data) => {
-    setValues([...values, data]);
+    setValues([
+      ...values,
+      {
+        key: values.length,
+        ...data,
+      },
+    ]);
     setShowDrawer(false);
   };
   const handleAddFormOnFinishFailed = (errorInfo) => {
@@ -19,6 +25,24 @@ function App() {
 
   console.log('values: ', values);
   console.log('errorInfo: ', errorInfo);
+
+  const columns = [
+    {
+      title: 'First Name',
+      dataIndex: 'firstName',
+      key: 'firstName',
+    },
+    {
+      title: 'Last Name',
+      dataIndex: 'lastName',
+      key: 'lastName',
+    },
+    {
+      title: 'Phone Number',
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber',
+    },
+  ];
 
   return (
     <>
@@ -30,7 +54,9 @@ function App() {
       >
         Add
       </Button>
-      <Layout.Content></Layout.Content>
+      <Layout.Content>
+        <Table dataSource={values} columns={columns}></Table>
+      </Layout.Content>
       <AddDrawer
         show={showDrawer}
         handleOnClose={() => setShowDrawer(false)}
