@@ -3,19 +3,12 @@ import './App.css';
 import { Button, Layout, Table, Menu, Breadcrumb } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import AddDrawer from './AddDrawer';
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
-const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+import { connect } from 'react-redux';
 
-function App() {
+const { Header, Content, Footer, Sider } = Layout;
+
+const App = ({ contacts, addContact }) => {
   const [showDrawer, setShowDrawer] = useState(false);
-  const [values, setValues] = useState([]);
   const [errorInfo, setErrorInfo] = useState({});
   const [collapsed, setCollapsed] = useState(false);
 
@@ -24,20 +17,16 @@ function App() {
   };
 
   const handleAddFormOnFinish = (data) => {
-    setValues([
-      ...values,
-      {
-        key: values.length,
-        ...data,
-      },
-    ]);
+    addContact({
+      key: contacts.length + 1,
+      ...data,
+    });
     setShowDrawer(false);
   };
   const handleAddFormOnFinishFailed = (errorInfo) => {
     setErrorInfo(errorInfo);
   };
 
-  console.log('values: ', values);
   console.log('errorInfo: ', errorInfo);
 
   const columns = [
@@ -96,7 +85,7 @@ function App() {
               </div>
 
               <Layout.Content>
-                <Table dataSource={values} columns={columns}></Table>
+                <Table dataSource={contacts} columns={columns}></Table>
               </Layout.Content>
               <AddDrawer
                 show={showDrawer}
@@ -113,5 +102,20 @@ function App() {
       </Layout>
     </>
   );
-}
-export default App;
+};
+
+const mapStateToProps = (state) => {
+  return {
+    contacts: state.contacts && state.contacts.allContacts,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addContact: (contact) => {
+      dispatch(addContact(contact));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
