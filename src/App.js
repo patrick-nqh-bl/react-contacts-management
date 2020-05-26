@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Button } from 'antd';
+import { Button, Layout } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import AddDrawer from './AddDrawer';
 
 function App() {
   const [showDrawer, setShowDrawer] = useState(false);
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState([]);
   const [errorInfo, setErrorInfo] = useState({});
 
-  const handleAddFormOnFinish = (values) => {
-    setValues(values);
+  const handleAddFormOnFinish = (data) => {
+    setValues([...values, data]);
+    setShowDrawer(false);
   };
   const handleAddFormOnFinishFailed = (errorInfo) => {
     setErrorInfo(errorInfo);
@@ -29,6 +30,7 @@ function App() {
       >
         Add
       </Button>
+      <Layout.Content></Layout.Content>
       <AddDrawer
         show={showDrawer}
         handleOnClose={() => setShowDrawer(false)}
