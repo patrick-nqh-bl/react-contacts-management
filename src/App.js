@@ -5,7 +5,11 @@ import { PlusCircleFilled } from '@ant-design/icons';
 
 function App() {
   return (
-    <Button type='primary' icon={<PlusCircleFilled />}>
+    <Button
+      type='primary'
+      icon={<PlusCircleFilled />}
+      data-testid='add-contact-button'
+    >
       Add
     </Button>
   );
