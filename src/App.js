@@ -4,6 +4,7 @@ import { Button, Layout, Table, Menu, Breadcrumb } from 'antd';
 import { PlusCircleFilled } from '@ant-design/icons';
 import AddDrawer from './AddDrawer';
 import { connect } from 'react-redux';
+import { addContact } from './redux/contacts/actions';
 
 const { Header, Content, Footer, Sider } = Layout;
 
